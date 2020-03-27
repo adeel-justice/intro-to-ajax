@@ -92,7 +92,30 @@
   //
 
   // TODO: your code goes here :)
+const catHeaders = new Headers({
+  'x-api-key': 'c1a32c83-96de-417d-aeb9-03164ecfe0c4'
+});
 
+
+const catBtn = document.getElementById('generateCatBtn')
+const catContainer = document.getElementById('catContainer')
+catBtn.addEventListener("click", clickCatBtn)
+  function clickCatBtn () {
+    fetch("https://api.thecatapi.com/v1/images/search?size=full&mime_types=jpg&format=json&has_breeds=1&order=RANDOM&page=0&limit=1", catHeaders)
+    .then(function(response){
+      console.log(response)
+        return response.json()
+         
+    })
+      .then(function(data) {
+        console.log(data)
+        const catImage = data[0].url
+        const catPic = `<img src=${catImage}>`    //back tick with ${} means your working with template literal 
+               
+        catContainer.innerHTML = catPic
+      })
+
+  }
   //
   // What else can you build with your new AJAX knowledge?
   //

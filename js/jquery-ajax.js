@@ -124,6 +124,35 @@
   //
 
   // TODO: your code goes here :)
+  let selectTag = document.createElement("select");
+  $(selectTag).attr("id", "breedSelect");
+  $("#selectBreedContainer").append(selectTag);
+
+  $( document ).ready(function(data) {
+    $.ajax({
+      url: "https://dog.ceo/api/breeds/list",
+    })
+    .done(function(data) {
+      console.log(data);
+        for(let i=0; i < data.message.length; i++){
+          $("breedSelect").append('<option value="' + data.message[1] + '">' + data.message[i] + '</option>');
+        }
+    });
+  });
+
+$("#breedSelect").on( "change", function() {
+
+  let imgTagTwo = document.createElement("img");
+  $(imgTagTwo).attr("src", "");
+  $(imgTagTwo).attr("id", 'dogpicTwo');
+  $("#selectBreedContainer").append(imgTagTwo);
+
+  let dogSelectAPI = "https://dog.ceo/api/breed/" + this.value + "/images/random";
+
+    $.get(dogSelectAPI, function(data){
+      $("#dogpicTwo").replaceWith( "<img src='" + data.message + "' id='dogpicTwo'>");
+    })
+})
 
   //
   // Excellent work!
